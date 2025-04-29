@@ -17,7 +17,7 @@
   max-width: 1200px;
   margin: auto;
 ">
-  <div *ngFor="let movie of movies" style="
+  <div *ngFor="let movie of paginatedMovies" style="
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -33,4 +33,36 @@
       </div>
     </a>
   </div>
+</div>
+
+<!-- ✅ Pagination avec numéros de page -->
+<div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 20px; margin-bottom: 40px; flex-wrap: wrap;">
+  <!-- Bouton Précédent -->
+  <button 
+    (click)="currentPage = currentPage - 1" 
+    [disabled]="currentPage === 1"
+    style="padding: 8px 16px; background-color: #e0e0e0; border: none; border-radius: 5px; cursor: pointer;"
+  >
+    ⬅ Précédent
+  </button>
+
+  <!-- Numéros de page -->
+  <ng-container *ngFor="let page of totalPagesArray; let i = index">
+    <button
+      (click)="currentPage = i + 1"
+      [ngClass]="{'active-page': currentPage === (i + 1)}"
+      style="padding: 8px 12px; background-color: #f0f0f0; border: none; border-radius: 5px; cursor: pointer;"
+    >
+      {{ i + 1 }}
+    </button>
+  </ng-container>
+
+  <!-- Bouton Suivant -->
+  <button 
+    (click)="currentPage = currentPage + 1" 
+    [disabled]="currentPage === totalPagesArray.length"
+    style="padding: 8px 16px; background-color: #e0e0e0; border: none; border-radius: 5px; cursor: pointer;"
+  >
+    Suivant ➡
+  </button>
 </div>
