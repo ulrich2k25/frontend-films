@@ -1,0 +1,21 @@
+<div class="form-container">
+  <h2>Ajouter un Film</h2>
+  <form (submit)="addMovie($event)">
+    <div>
+      <label>Titre :</label>
+      <input type="text" name="title" required />
+    </div>
+
+    <div>
+      <label>Image (URL) :</label>
+      <input type="text" name="img" required />
+    </div>
+
+    <div>
+      <label>Lien Telegram :</label>
+      <input type="text" name="telegram" required />
+    </div>
+
+    <button type="submit">Ajouter</button>
+  </form>
+</div>
