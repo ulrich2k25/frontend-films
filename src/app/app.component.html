@@ -1,14 +1,14 @@
-<!-- Formulaire pour ajouter un nouveau film (visible uniquement pour admin) -->
+<!-- Formulaire d'ajout -->
 <div *ngIf="isAdmin" style="margin-bottom: 30px;">
   <app-add-movie></app-add-movie>
 </div>
 
-<!-- Titre de la page -->
+<!-- Titre -->
 <div style="text-align: center; margin-top: 30px;">
   <h1 style="font-size: 2rem; font-weight: bold;">🎬 Liste des Films</h1>
 </div>
 
-<!-- Grille des films -->
+<!-- Grille -->
 <div style="
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -19,15 +19,19 @@
 ">
   <div *ngFor="let movie of paginatedMovies" style="
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: transform 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
     background: #fff;
     text-align: center;
     cursor: pointer;
-  ">
+  " 
+  onmouseover="this.style.transform='scale(1.05)'"
+  onmouseout="this.style.transform='scale(1)'">
     <a [href]="movie.telegram" target="_blank" style="text-decoration: none; color: inherit;">
-      <img [src]="movie.img" [alt]="movie.title" style="width: 100%; height: 250px; object-fit: cover;" />
+      <img [src]="movie.img" [alt]="movie.title"
+           style="width: 100%; height: 250px; object-fit: cover; display: block;"
+           loading="lazy" />
       <div style="padding: 10px;">
         <h3 style="font-weight: bold; font-size: 1.1rem;">{{ movie.title }}</h3>
       </div>
@@ -35,34 +39,25 @@
   </div>
 </div>
 
-<!-- ✅ Pagination avec numéros de page -->
+<!-- Pagination -->
 <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 20px; margin-bottom: 40px; flex-wrap: wrap;">
-  <!-- Bouton Précédent -->
-  <button 
-    (click)="currentPage = currentPage - 1" 
-    [disabled]="currentPage === 1"
-    style="padding: 8px 16px; background-color: #e0e0e0; border: none; border-radius: 5px; cursor: pointer;"
-  >
+  <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1"
+          style="padding: 8px 16px; background-color: #e0e0e0; border: none; border-radius: 5px; cursor: pointer;">
     ⬅ Précédent
   </button>
 
-  <!-- Numéros de page -->
   <ng-container *ngFor="let page of totalPagesArray; let i = index">
-    <button
-      (click)="currentPage = i + 1"
-      [ngClass]="{'active-page': currentPage === (i + 1)}"
-      style="padding: 8px 12px; background-color: #f0f0f0; border: none; border-radius: 5px; cursor: pointer;"
-    >
+    <button (click)="currentPage = i + 1"
+            [ngStyle]="{ 'font-weight': currentPage === (i + 1) ? 'bold' : 'normal',
+                         'background-color': currentPage === (i + 1) ? '#b3d4fc' : '#f0f0f0' }"
+            style="padding: 8px 12px; border: none; border-radius: 5px; cursor: pointer;">
       {{ i + 1 }}
     </button>
   </ng-container>
 
-  <!-- Bouton Suivant -->
-  <button 
-    (click)="currentPage = currentPage + 1" 
-    [disabled]="currentPage === totalPagesArray.length"
-    style="padding: 8px 16px; background-color: #e0e0e0; border: none; border-radius: 5px; cursor: pointer;"
-  >
+  <button (click)="currentPage = currentPage + 1"
+          [disabled]="currentPage === totalPagesArray.length"
+          style="padding: 8px 16px; background-color: #e0e0e0; border: none; border-radius: 5px; cursor: pointer;">
     Suivant ➡
   </button>
 </div>
