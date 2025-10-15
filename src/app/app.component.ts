@@ -13,12 +13,23 @@ import { MovieService, Movie } from './services/movie.service';
 })
 export class AppComponent implements OnInit {
   movies: Movie[] = [];
-  isAdmin: boolean = true;
+  isAdmin: boolean = false;
+
 
   private _currentPage = 1;
   itemsPerPage = 20;
 
   constructor(private movieService: MovieService) {}
+
+  checkAdmin() {
+  const password = prompt("Entrez le mot de passe admin :");
+  if (password === 'monmotdepasse123') {
+    this.isAdmin = true;
+  } else {
+    alert('Accès refusé');
+  }
+}
+
 
   ngOnInit(): void {
     const savedPage = localStorage.getItem('currentPage');

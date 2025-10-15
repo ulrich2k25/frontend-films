@@ -1,3 +1,7 @@
+<!-- Bouton pour activer le mode admin -->
+<button (click)="checkAdmin()" class="btn-admin">🔑 Mode Admin</button>
+
+
 <!-- Formulaire d'ajout -->
 <div *ngIf="isAdmin" style="margin-bottom: 30px;">
   <app-add-movie></app-add-movie>
